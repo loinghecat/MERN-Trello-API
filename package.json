@@ -1,0 +1,13 @@
+{
+  "name": "MERN-Trello-API",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "loinghe mern trello api",
+  "main": "src/server.js",
+  "author": "loinghe",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
