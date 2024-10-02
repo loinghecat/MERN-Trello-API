@@ -2,10 +2,10 @@
   "name": "nodejs-expressjs-mongodb-base-project",
   "private": true,
   "version": "1.0.0",
-  "author": "TrungQuanDev - Một Lập Trình Viên",
-  "description": "https://youtube.com/@trungquandev",
+  "author": "Loi Nghe",
+  "description": "Loi Nghe",
   "engines": {
-    "node": "18.16.0"
+    "node": "20.12.0"
   },
   "scripts": {
     "lint": "eslint src --ext js --report-unused-disable-directives --max-warnings 0",
