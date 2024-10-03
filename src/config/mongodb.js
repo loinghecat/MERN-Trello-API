@@ -10,7 +10,7 @@ const mongoClientInstance = new MongoClient(MONGODB_URI, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
-    deprecationErrors: true,
+    deprecationErrors: true
 }
 })
 
@@ -24,4 +24,9 @@ export const GET_DB = () => {
     throw new Error('Call connectDB first')
   }
   return trelloDatabaseInstance
+}
+export const CLOSE_DB = async () => {
+  console.log('Running...')
+  await mongoClientInstance.close()
+ 
 }

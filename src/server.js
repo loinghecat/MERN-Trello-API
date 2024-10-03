@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-
 import express from 'express'
-import {CONNECT_DB,GET_DB} from '~/config/mongodb'
+ import exitHook from 'async-exit-hook'
+import {CONNECT_DB,GET_DB, CLOSE_DB} from '~/config/mongodb'
 const START_SERVER =()=>{
   const app = express()
 
@@ -16,7 +16,13 @@ const START_SERVER =()=>{
   app.listen(port, hostname, () => {
     console.log(`Hello Loi Nghe, I am running at http://${ hostname }:${ port }/`)
   })
+  exitHook(async () => {
+    console.log('Closing MongoDB connection...')
+    await CLOSE_DB()
+    console.log('Closed MongoDB connection')
+  })
 }
+
 
 (async () => {
   try {
@@ -32,7 +38,7 @@ const START_SERVER =()=>{
 // CONNECT_DB()
 //   .then(() => console.log('Connected to MongoDB'))
 //   .then(() => START_SERVER())
-//   .catch(error => {
+//   .catch(error => {s
 //     console.error(error)
 //     process.exit(0)
 //   })
