@@ -14,6 +14,7 @@ const createNew = async (req,res,next)=>{
     description: Joi.string().required().min(3).max(256).trim().strict(),
   })
   try {
+    console.log(req.body)
     await correctCondition.validateAsync(req.body, {abortEarly: false})
     res.status(StatusCodes.CREATED).json({message: 'validation Create new board'})
   } catch (error) {
