@@ -14,9 +14,9 @@ const createNew = async (req,res,next)=>{
     description: Joi.string().required().min(3).max(256).trim().strict(),
   })
   try {
-    console.log(req.body)
     await correctCondition.validateAsync(req.body, {abortEarly: false})
-    res.status(StatusCodes.CREATED).json({message: 'validation Create new board'})
+    //Move to the next middleware if no error
+    next()
   } catch (error) {
     res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({errors: new Error(error).message })
   }
