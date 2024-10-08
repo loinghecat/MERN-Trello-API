@@ -8,5 +8,5 @@ Router.get('/status', (req, res) => {
   res.status(StatusCodes.OK).json({message: 'API V1 are ready to use'})
 })
 /** Board APIs */
-Router.use('/boards', boardRoute) 
+Router.use('/boards', boardRoute)
 export const APIs_V1 = Router
