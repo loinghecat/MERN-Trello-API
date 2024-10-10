@@ -1,7 +1,8 @@
 import Joi from 'joi'
 import { StatusCodes } from 'http-status-codes'
+import { BOARD_TYPES } from '~/utils/constants'
 import ApiError from '~/utils/ApiError'
-const createNew = async (req,res,next)=>{
+const createNew = async (req, res, next)=>{
   const correctCondition = Joi.object({
     title: Joi.string().required().min(3).max(50).trim().strict().messages({
       'string.base': 'Title must be a string',
@@ -12,6 +13,8 @@ const createNew = async (req,res,next)=>{
       'string.trim': 'Title cannot have whitespace',
     }),
     description: Joi.string().required().min(3).max(256).trim().strict(),
+    type: Joi.string().required().valid(BOARD_TYPES.PUBLIC,BOARD_TYPES.PRIVATE),
+
   })
   try {
     await correctCondition.validateAsync(req.body, {abortEarly: false})

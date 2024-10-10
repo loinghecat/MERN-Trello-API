@@ -2,6 +2,7 @@ import { slugify } from '~/utils/formatters'
 import {boardModel} from '~/models/boardModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
+import {cloneDeep} from 'lodash'
 const createNew = async ( reqBody ) => {
   try {
     const newBoard = {
@@ -23,7 +24,15 @@ const getDetails = async ( boardId ) => {
     if (!board) {
       throw new ApiError(StatusCodes.NOT_FOUND,'Board not found')
     }
-    return board
+    // Process the data structure to match with the mock data used in the frontend 
+    // Clone a completely new object to avoid changing the original object
+    const resBoard = cloneDeep(board)
+    // Filter the cards based on the columnId
+    resBoard.columns.forEach(column => {
+      column.cards = resBoard.cards.filter(card => card.columnId.toString() ===column._id.toString())
+    })
+    delete resBoard.cards
+    return resBoard
   } catch (error) {
     {throw error}
   }
