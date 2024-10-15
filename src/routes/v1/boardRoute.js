@@ -11,9 +11,7 @@ Router.route('/')
   .post(boardValidation.createNew, boardController.createNew)
 Router.route('/:id')
   .get(boardController.getDetails)
-  .put((req, res) => {
-    res.status(StatusCodes.OK).json({message: 'Update board by id'})
-  })
+  .put(boardValidation.update, boardController.update)
   .delete((req, res) => {
     res.status(StatusCodes.OK).json({message: 'Delete board by id'})
   })
