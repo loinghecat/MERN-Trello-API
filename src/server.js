@@ -13,14 +13,19 @@ const START_SERVER =()=>{
   app.use(cors(corsOptions))
   // Enable req.body json data
   app.use(express.json())
-  
   // Use APIs_V1
   app.use('/v1', APIs_V1)
   // Middleware for Error handling Hub
   app.use(errorHandlingMiddleware)
-  app.listen(env.APP_PORT, env.APP_HOST, () => {
-    console.log(`Hello ${env.AUTHOR}, I am running at http://${ env.APP_HOST }:${ env.APP_PORT }/`)
-  })
+  if (env.BUILD_MODE === 'production') {
+    app.listen(process.env.PORT, () => {
+      console.log(`From Production: Hello ${env.AUTHOR}, I am running at PORT:${ process.env.PORT }/`)
+    })
+  } else {
+    app.listen(env.APP_PORT, env.APP_HOST, () => {
+      console.log(`Hello ${env.AUTHOR}, I am running at http://${ env.LOCAL_DEV_APP_HOST }:${ env.LOCAL_DEV_APP_PORT }/`)
+    })
+  }
 
   exitHook( () => {
     console.log('Server is shutting down...')
