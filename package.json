@@ -5,7 +5,7 @@
   "author": "Loi Nghe",
   "description": "Loi Nghe",
   "engines": {
-    "node": "20.12.0"
+    "node": "20.x"
   },
   "scripts": {
     "lint": "eslint src --ext js --report-unused-disable-directives --max-warnings 0",
