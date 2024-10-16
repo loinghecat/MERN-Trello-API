@@ -3,8 +3,8 @@ import express from 'express'
 import cors from 'cors'
 import exitHook from 'async-exit-hook'
 import {CONNECT_DB, CLOSE_DB} from '~/config/mongodb'
-import {env} from '~/config/environment'
-import {APIs_V1} from '~/routes/v1/index'
+import { env } from '~/config/environment'
+import { APIs_V1 } from '~/routes/v1/index'
 import {errorHandlingMiddleware} from '~/middlewares/errorHandlingMiddleware'
 import { corsOptions } from './config/cors'
 const START_SERVER =()=>{
@@ -19,7 +19,7 @@ const START_SERVER =()=>{
   app.use(errorHandlingMiddleware)
   if (env.BUILD_MODE === 'production') {
     app.listen(process.env.PORT, () => {
-      console.log(`From Production: Hello ${env.AUTHOR}, I am running at PORT:${ process.env.PORT }/`)
+      console.log(`From Production: Hello ${env.AUTHOR}, I am running at PORT:${ process.env.PORT }`)
     })
   } else {
     app.listen(env.APP_PORT, env.APP_HOST, () => {
