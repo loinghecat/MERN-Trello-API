@@ -2,15 +2,15 @@
 import express from 'express'
 import cors from 'cors'
 import exitHook from 'async-exit-hook'
-import {CONNECT_DB, CLOSE_DB} from '~/config/mongodb'
+import { CONNECT_DB, CLOSE_DB } from '~/config/mongodb'
 import { env } from '~/config/environment'
 import { APIs_V1 } from '~/routes/v1/index'
-import {errorHandlingMiddleware} from '~/middlewares/errorHandlingMiddleware'
-import { corsOptions } from './config/cors'
-const START_SERVER =()=>{
+import { errorHandlingMiddleware } from '~/middlewares/errorHandlingMiddleware'
+import { corsOptions } from '~/config/cors'
+const START_SERVER =() => {
   const app = express()
   // Enable CORS
-  app.use(cors({ origin: 'http://localhost:5173' }))
+  app.use(cors(corsOptions))
   // Enable req.body json data
   app.use(express.json())
   // Use APIs_V1
@@ -22,7 +22,7 @@ const START_SERVER =()=>{
       console.log(`From Production: Hello ${env.AUTHOR}, I am running at PORT:${ process.env.PORT }`)
     })
   } else {
-    app.listen(env.APP_PORT, env.APP_HOST, () => {
+    app.listen(env.LOCAL_DEV_APP_PORT, env.LOCAL_DEV_APP_HOST, () => {
       console.log(`Hello ${env.AUTHOR}, I am running at http://${ env.LOCAL_DEV_APP_HOST }:${ env.LOCAL_DEV_APP_PORT }/`)
     })
   }

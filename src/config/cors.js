@@ -7,7 +7,7 @@ import ApiError from '~/utils/ApiError'
 export const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (POSTMAN, Mobile Apps, etc.)
-    if (!origin && env.BUILD_MODE === 'dev') {
+    if ( env.BUILD_MODE === 'dev') {
       return callback(null, true)
     }
 
