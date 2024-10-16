@@ -10,7 +10,7 @@ import { corsOptions } from './config/cors'
 const START_SERVER =()=>{
   const app = express()
   // Enable CORS
-  app.use(cors(corsOptions))
+  app.use(cors({ origin: 'http://localhost:5173' }))
   // Enable req.body json data
   app.use(express.json())
   // Use APIs_V1
