@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { ObjectId } from 'mongodb'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import {GET_DB} from '~/config/mongodb'
+import { GET_DB } from '~/config/mongodb'
 import { BOARD_TYPES } from '~/utils/constants'
 import { columnModel } from './columnModel'
 import { cardModel } from './cardModel'
@@ -10,17 +10,17 @@ const BOARD_COLLECTION_SCHEMA = Joi.object({
   title: Joi.string().required().min(3).max(50).trim().strict(),
   slug: Joi.string().required().min(3).trim().strict(),
   description: Joi.string().required().min(3).max(256).trim().strict(),
-  type: Joi.string().required().valid(BOARD_TYPES.PUBLIC,BOARD_TYPES.PRIVATE),
+  type: Joi.string().required().valid(BOARD_TYPES.PUBLIC, BOARD_TYPES.PRIVATE),
   columnOrderIds: Joi.array().items(Joi.string().pattern(OBJECT_ID_RULE).message(OBJECT_ID_RULE_MESSAGE)).default([]),
   createdAt: Joi.date().timestamp('javascript').default(Date.now),
   updatedAt: Joi.date().timestamp('javascript').default(null),
-  _destroy: Joi.boolean().default(false),
+  _destroy: Joi.boolean().default(false)
 
 })
 const INVALID_UPDATE_FIELDS = ['_id', 'createdAt']
 const validatebeforeCreate = async (data) => {
   try {
-    return await BOARD_COLLECTION_SCHEMA.validateAsync(data,{abortEarly:false})
+    return await BOARD_COLLECTION_SCHEMA.validateAsync(data, { abortEarly:false })
   } catch (error) {
     throw new Error(error)
   }
@@ -94,7 +94,7 @@ const update = async (boardId, updateData) => {
       }
     })
     if (updateData.columnOrderIds) {
-      updateData.columnOrderIds = updateData.columnOrderIds.map(_id=> (new ObjectId(_id)))
+      updateData.columnOrderIds = updateData.columnOrderIds.map( _id => (new ObjectId(_id)))
     }
     const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOneAndUpdate(
       { _id: new ObjectId(boardId) },
