@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import { OBJECT_ID_RULE, OBJECT_ID_RULE_MESSAGE } from '~/utils/validators'
-import {GET_DB} from '~/config/mongodb'
+import { GET_DB } from '~/config/mongodb'
 import { ObjectId } from 'mongodb'
 
 // Define Collection (name & schema)
@@ -20,7 +20,7 @@ const INVALID_UPDATE_FIELDS = ['_id', 'createdAt', 'boardId']
 
 const validatebeforeCreate = async (data) => {
   try {
-    return await CARD_COLLECTION_SCHEMA.validateAsync(data,{abortEarly:false})
+    return await CARD_COLLECTION_SCHEMA.validateAsync(data, { abortEarly:false })
   } catch (error) {
     throw new Error(error)
   }
@@ -39,9 +39,9 @@ const createNew = async (data) => {
     throw new Error(error)
   }
 }
-const findOneById = async (id) => {
+const findOneById = async (cardId) => {
   try {
-    const result = await GET_DB().collection(CARD_COLLECTION_NAME).findOne({ _id: new ObjectId(id) })
+    const result = await GET_DB().collection(CARD_COLLECTION_NAME).findOne({ _id: new ObjectId(cardId) })
     return result
   } catch (error) {
     throw new Error(error)
@@ -67,10 +67,19 @@ const update = async (cardId, updateData) => {
     throw new Error(error)
   }
 }
+const deleteManyByColumnId = async (columnId) => {
+  try {
+    const result = await GET_DB().collection(CARD_COLLECTION_NAME).deleteMany({ columnId: new ObjectId(columnId) })
+    return result
+  } catch (error) {
+    throw new Error(error)
+  }
+}
 export const cardModel = {
   CARD_COLLECTION_NAME,
   CARD_COLLECTION_SCHEMA,
   createNew,
   findOneById,
-  update
+  update,
+  deleteManyByColumnId
 }

@@ -1,8 +1,8 @@
 import { slugify } from '~/utils/formatters'
-import {boardModel} from '~/models/boardModel'
+import { boardModel } from '~/models/boardModel'
 import ApiError from '~/utils/ApiError'
 import { StatusCodes } from 'http-status-codes'
-import {cloneDeep} from 'lodash'
+import { cloneDeep } from 'lodash'
 import { columnModel } from '~/models/columnModel'
 import { cardModel } from '~/models/cardModel'
 const createNew = async ( reqBody ) => {
@@ -24,9 +24,9 @@ const getDetails = async ( boardId ) => {
   try {
     const board = await boardModel.getDetails(boardId)
     if (!board) {
-      throw new ApiError(StatusCodes.NOT_FOUND,'Board not found')
+      throw new ApiError(StatusCodes.NOT_FOUND, 'Board not found')
     }
-    // Process the data structure to match with the mock data used in the frontend 
+    // Process the data structure to match with the mock data used in the frontend
     // Clone a completely new object to avoid changing the original object
     const resBoard = cloneDeep(board)
     // Filter the cards based on the columnId
@@ -45,8 +45,7 @@ const update = async ( boardId, reqBody ) => {
       ...reqBody,
       updatedAt: Date.now()
     }
-    const updatedBoard = await boardModel.update(boardId,updatedData)
-   
+    const updatedBoard = await boardModel.update(boardId, updatedData)
     return updatedBoard
   } catch (error) {
     {throw error}
@@ -75,4 +74,4 @@ export const boardService = { createNew,
   getDetails,
   update,
   moveCardToDifferentColumn
- }
+}

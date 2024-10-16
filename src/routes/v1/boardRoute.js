@@ -6,7 +6,7 @@ const Router = express.Router()
 
 Router.route('/')
   .get((req, res) => {
-    res.status(StatusCodes.OK).json({message: 'Get all board'})
+    res.status(StatusCodes.OK).json({ message: 'Get all board' })
   })
   .post(boardValidation.createNew, boardController.createNew)
 Router.route('/:id')
