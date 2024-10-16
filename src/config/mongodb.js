@@ -5,7 +5,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb'
 let trelloDatabaseInstance = null
 
 //Initialize the MongoDB client to connect to MongoDB
-const mongoClientInstance = new MongoClient(env.MONGODB_URI, {
+const mongoClientInstance = new MongoClient('mongodb+srv://loinghecat:geJBrOA8LzZwTQHS@cluster0-loinghe.yyuko.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0-loinghe', {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
